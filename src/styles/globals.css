@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+/*
+ * Token desain Piard (analysis/08-ui-reference-sana.md bagian 3, docs/ui-guidelines.md).
+ * Setiap token memakai light-dark(terang, gelap) sehingga satu deklarasi cukup, dan bagian mana
+ * pun halaman bisa dipaksa terang/gelap dengan atribut data-theme (dipakai halaman uji komponen).
+ * Komponen hanya boleh memakai token ini, tidak boleh memakai nilai hex langsung.
+ *
+ * Catatan: browser menghitung light-dark() pada elemen tempat variabel dideklarasikan, bukan
+ * tempat dipakai. Karena itu token dideklarasikan juga pada setiap [data-theme] agar dihitung
+ * ulang di subtree yang dipaksa terang/gelap.
+ */
+:root {
+  color-scheme: light dark;
+}
+
+:root,
+[data-theme] {
+  --background: light-dark(#fafaf8, #0e0e10);
+  --foreground: light-dark(#0b0b0c, #f4f4f2);
+  --card: light-dark(#ffffff, #17171a);
+  --muted: light-dark(#f1f0ee, #1e1e22);
+  /* Kontras ≥ 4.5:1 di atas background, card, dan muted pada kedua tema. */
+  --muted-foreground: light-dark(#66666a, #a1a1a8);
+  --border: light-dark(#e6e4e0, #26262b);
+  --control-border: light-dark(#cfcdc8, #3a3a41);
+  --active: light-dark(#ecebe8, #232328);
+
+  --primary: light-dark(#0b0b0c, #f4f4f2);
+  --primary-foreground: light-dark(#fafaf8, #0b0b0c);
+  /* Indigo hanya untuk fokus, tautan, dan progres. Bukan untuk chrome. */
+  --accent: light-dark(#4a2bdb, #a99cff);
+  --accent-foreground: light-dark(#ffffff, #0e0e10);
+  --accent-soft: light-dark(#eeebfd, #25214a);
+
+  --positive: light-dark(#247b50, #4cc38a);
+  --positive-soft: light-dark(#dcfae5, #14301f);
+  --negative: light-dark(#c4242a, #ff7a80);
+  --negative-soft: light-dark(#ffedea, #3a1a1c);
+  --warning: light-dark(#92400e, #f5b46a);
+  --warning-soft: light-dark(#fffbeb, #33260f);
+
+  --ring: var(--accent);
+  --overlay: light-dark(rgb(11 11 12 / 0.4), rgb(0 0 0 / 0.6));
+
+  --radius-card: 20px;
+  --radius-control: 14px;
+  --radius-chip: 8px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-control-border: var(--control-border);
+  --color-active: var(--active);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-positive: var(--positive);
+  --color-positive-soft: var(--positive-soft);
+  --color-negative: var(--negative);
+  --color-negative-soft: var(--negative-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-ring: var(--ring);
+  --color-overlay: var(--overlay);
+
+  --radius-card: var(--radius-card);
+  --radius-control: var(--radius-control);
+  --radius-chip: var(--radius-chip);
+
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+html {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Fokus selalu terlihat (WCAG 2.4.7); kotak fokus tidak boleh tertutup elemen lengket. */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--foreground);
+}
+
+/* Angka rata digit di tabel, hitungan, dan biaya. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Teks yang dialirkan: kursor berkedip, tanpa lompatan tata letak. */
+@keyframes caret-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  55%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.stream-caret {
+  display: inline-block;
+  width: 0.5ch;
+  height: 1.1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: var(--accent);
+  animation: caret-blink 1s steps(1, end) infinite;
+}
+
+.rise-in {
+  animation: rise-in var(--duration-base) var(--ease-out) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    /* biome-ignore lint/complexity/noImportantStyles: reset gerak harus menang atas kelas utilitas mana pun */
+    animation-duration: 0.01ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: lihat di atas */
+    animation-iteration-count: 1 !important;
+    /* biome-ignore lint/complexity/noImportantStyles: lihat di atas */
+    transition-duration: 0.01ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: lihat di atas */
+    scroll-behavior: auto !important;
+  }
+
+  .stream-caret {
+    animation: none;
+  }
+}

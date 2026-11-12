@@ -1,0 +1,6 @@
+{
+  "name": "piard-mcp",
+  "private": true,
+  "description": "Server MCP stdio Piard (ADR 0017): klien HTTP tipis untuk /api/agent/*. Dijalankan dengan `node mcp/server.ts`.",
+  "type": "module"
+}

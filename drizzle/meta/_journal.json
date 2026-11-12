@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1793248979591,
+      "tag": "0000_happy_quasimodo",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1793319330492,
+      "tag": "0001_magical_paibok",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1793330013347,
+      "tag": "0002_outstanding_ulik",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1793344304809,
+      "tag": "0003_broken_talkback",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1793406072055,
+      "tag": "0004_dry_sunset_bain",
+      "breakpoints": true
+    }
+  ]
+}
